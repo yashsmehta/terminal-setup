@@ -10,3 +10,4 @@ brew "fd"         # find replacement (feeds fzf)
 brew "zoxide"     # smarter cd
 brew "ripgrep"
 brew "tmux"
+brew "jq"         # used by the Claude Code status line

@@ -195,6 +195,29 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 # Added by Antigravity
 export PATH="/Users/mehtay/.antigravity/antigravity/bin:$PATH"
 
+# Start Claude Code in the palette theme that matches macOS light/dark mode
+# (pairs with the Ghostty themes in ~/.config/ghostty/themes). Subcommands pass through.
+claude() {
+  case "$1" in
+    agents|attach|auth|auto-mode|doctor|gateway|import|install|logs|mcp|plugin|plugins|purge|respawn|rm|sessions|setup-token|stop|kill|ultrareview|update|upgrade)
+      command claude "$@"; return ;;
+  esac
+  local theme=light-ansi
+  [[ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" == Dark ]] && theme=dark-ansi
+  command claude --settings "{\"theme\":\"$theme\"}" "$@"
+}
+
+# Start the Antigravity CLI with all tool permissions auto-approved by default.
+# Subcommands (agy update, agy mcp ...) are passed through untouched.
+agy() {
+  case "$1" in
+    acp|agent|agents|changelog|help|install|mcp|mic-serve|models|plugin|plugins|remote-control|update)
+      command agy "$@" ;;
+    *)
+      command agy --dangerously-skip-permissions "$@" ;;
+  esac
+}
+
 # Run Claude Code, Codex, or Antigravity in a persistent, project-specific tmux session on labgpu2.
 # Paths are relative to /home/ymehta3/research.
 _remote_research_agent() {

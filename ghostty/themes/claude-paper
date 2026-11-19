@@ -1,0 +1,29 @@
+# Claude Paper: warm ink on paper, tuned for Claude Code's "light-ansi" theme.
+# What Claude Code draws with each slot:
+#   4  inline code, links, keywords      1  errors, strings, "bypass permissions"
+#   3  function names, warnings          2  success dots       6  builtins
+#   7  user-message band, prompt rules   8  dim text (tool summaries, line numbers)
+#   9-14  diff view: markers and syntax  9  also the Claude mascot
+palette = 0=#1f1e1d
+palette = 1=#b0503c
+palette = 2=#3d7a52
+palette = 3=#8f6a1e
+palette = 4=#315c9c
+palette = 5=#8a4a6f
+palette = 6=#2a7a78
+palette = 7=#e8e5da
+palette = 8=#74726a
+palette = 9=#d97757
+palette = 10=#4c8a4a
+palette = 11=#a8741a
+palette = 12=#4a78c2
+palette = 13=#a8527a
+palette = 14=#2f8f86
+palette = 15=#f0eee6
+background = #faf9f5
+foreground = #1f1e1d
+cursor-color = #d97757
+cursor-text = #faf9f5
+selection-background = #f1dccf
+selection-foreground = #1f1e1d
+split-divider-color = #e8e6dc

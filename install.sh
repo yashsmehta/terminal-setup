@@ -1,6 +1,7 @@
 #!/bin/zsh
-# Sets up the terminal on a Mac: tools, Oh My Zsh + plugins, and symlinks to the configs in this repo.
-# Safe to re-run. Existing files are moved aside to <name>.pre-dotfiles before being replaced.
+# Sets up the terminal on a Mac: tools, Oh My Zsh + plugins, symlinks to the configs in this repo,
+# and the Claude Code look (status line, theme setting).
+# Safe to re-run. Existing files are moved aside to <name>.pre-terminal-setup before being replaced.
 set -e
 DOT=${0:A:h}
 
@@ -26,15 +27,32 @@ link() {  # link <file in repo> <destination>
   local src=$DOT/$1 dst=$2
   mkdir -p ${dst:h}
   if [[ -L $dst && ${dst:A} == ${src:A} ]]; then return; fi
-  if [[ -e $dst || -L $dst ]]; then mv $dst $dst.pre-dotfiles; echo "    moved existing $dst to $dst.pre-dotfiles"; fi
+  if [[ -e $dst || -L $dst ]]; then mv $dst $dst.pre-terminal-setup; echo "    moved existing $dst to $dst.pre-terminal-setup"; fi
   ln -s $src $dst
   echo "    $dst -> $src"
 }
 
 echo "==> Linking configs"
-link zsh/zshrc               ~/.zshrc
-link ghostty/config          ~/.config/ghostty/config
-link starship/starship.toml  ~/.config/starship.toml
+if [[ -d ~/.config/ghostty && ! -w ~/.config/ghostty ]]; then
+  # Seen on one machine: the folder was created by root, so nothing could be added to it.
+  mv ~/.config/ghostty ~/.config/ghostty.not-writable
+  echo "    ~/.config/ghostty was not writable; moved it to ~/.config/ghostty.not-writable"
+fi
+link zsh/zshrc                       ~/.zshrc
+link ghostty/config                  ~/.config/ghostty/config
+link ghostty/themes/claude-paper     ~/.config/ghostty/themes/claude-paper
+link ghostty/themes/claude-graphite  ~/.config/ghostty/themes/claude-graphite
+link starship/starship.toml          ~/.config/starship.toml
+link claude/statusline-command.sh    ~/.claude/statusline-command.sh
+
+echo "==> Claude Code settings"
+# Copied, not linked: Claude Code rewrites this file itself. An existing file is left alone.
+if [[ -e ~/.claude/settings.json ]]; then
+  echo "    ~/.claude/settings.json exists; compare it with $DOT/claude/settings.json by hand"
+else
+  cp "$DOT/claude/settings.json" ~/.claude/settings.json
+  echo "    copied settings.json"
+fi
 
 echo "==> Caps Lock as F18 (toggles the Ghostty quick terminal)"
 agent=~/Library/LaunchAgents/com.yashsmehta.capslock-f18.plist
