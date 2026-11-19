@@ -1,0 +1,52 @@
+# Appearance
+theme = Claude Light
+window-colorspace = "display-p3"
+# Frosted paper: native macOS glass behind a mostly opaque background.
+# Delete these two lines for a fully solid window (needs a full Ghostty restart either way).
+background-opacity = 0.9
+background-blur = macos-glass-regular
+# Tabs live inside the titlebar: no separate grey tab strip, no folder icon
+macos-titlebar-style = tabs
+macos-titlebar-proxy-icon = hidden
+
+# Type: Google Sans Code, with a softer SemiBold standing in for bold
+font-family = "Google Sans Code"
+font-style-bold = SemiBold
+font-style-bold-italic = SemiBold Italic
+font-size = 13
+adjust-cell-height = 9%
+window-title-font-family = "Google Sans Code"
+
+# Layout: even margins (top padding is capped so the first line sits near the titlebar)
+window-padding-x = 20
+window-padding-y = 10
+window-padding-balance = true
+window-width = 120
+window-height = 36
+
+# Cursor and selection: Claude orange bar, warm selection tint
+cursor-style = bar
+cursor-style-blink = false
+adjust-cursor-thickness = 1
+selection-background = #f1dccf
+selection-foreground = #141413
+
+# Splits: soft divider, gentle dimming of unfocused panes
+split-divider-color = #e8e6dc
+unfocused-split-opacity = 0.85
+mouse-hide-while-typing = true
+
+# Behaviour
+copy-on-select = clipboard
+clipboard-paste-protection = false
+macos-option-as-alt = true
+
+# Shell integration: ssh-terminfo installs Ghostty's terminfo on remote hosts
+# on first connect; ssh-env falls back to xterm-256color where that fails.
+shell-integration-features = no-cursor,sudo,ssh-terminfo,ssh-env
+
+# Quick terminal: caps lock is remapped to F18 system-wide
+# (~/Library/LaunchAgents/com.yashsmehta.capslock-f18.plist), and F18 toggles it from any app.
+keybind = global:f18=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-size = 45%

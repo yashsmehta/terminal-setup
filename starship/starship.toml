@@ -1,0 +1,42 @@
+# Single-line prompt in the Claude Light palette (accent = Claude orange #d97757).
+# No blank line between prompts: the directory sits in a soft rounded chip so each
+# prompt line still stands apart from output. Slow-command timing sits on the right.
+add_newline = false
+format = "$directory$git_branch$git_status$conda$python$character"
+right_format = "$cmd_duration"
+
+[directory]
+format = "[](#efede4)[$path]($style)[$read_only]($read_only_style)[](#efede4) "
+style = "bold fg:#141413 bg:#efede4"
+read_only = " \U000F033E"
+read_only_style = "fg:#87867f bg:#efede4"
+truncation_length = 3
+truncate_to_repo = true
+
+[git_branch]
+format = "[](#f7e8de)[ $branch]($style)[](#f7e8de) "
+style = "fg:#b5532f bg:#f7e8de"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "#b87700"
+
+[conda]
+format = "[$environment]($style) "
+style = "#2e7c4c"
+ignore_base = true
+
+[python]
+format = "[($virtualenv)]($style) "
+style = "#2e7c4c"
+detect_extensions = []
+detect_files = []
+
+[cmd_duration]
+min_time = 3000
+format = "[$duration]($style)"
+style = "#b0aea5"
+
+[character]
+success_symbol = "[❯](bold #d97757)"
+error_symbol = "[❯](bold #e34a4a)"
